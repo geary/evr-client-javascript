@@ -12,7 +12,10 @@
 
 <script>
 	console.log( "Test PushID: " + EaseVR.generatePushID() );
-	
+
+	EaseVR.logPushes( true );
+	EaseVR.autoPush( 1000 );
+
 	EaseVR.sessionBegin(
 		"TODO: Device ID",
 		"TODO: HMD Name",
@@ -42,17 +45,25 @@
 		1, 2, 3
 	);
 
-	EaseVR.markerExit(
-		'TestMarker',
-		1, 2, 3
+	EaseVR.presence(
+		10, 20, 30,
+		40, 50, 60,
+		99, 0
 	);
 
-	EaseVR.markerRemove(
-		'TestMarker',
-		1, 2, 3
-	);
+	setTimeout( function() {
+		EaseVR.markerExit(
+			'TestMarker',
+			1, 2, 3
+		);
 
-	EaseVR.sessionEnd();
+		EaseVR.markerRemove(
+			'TestMarker',
+			1, 2, 3
+		);
+
+		EaseVR.sessionEnd();
+	}, 3000 );
 </script>
 
 </body>

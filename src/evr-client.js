@@ -10,6 +10,7 @@
 		'http://api.easevr.com/v1';
 	var _events = [];
 	var _autoPushInterval;
+	var _logPushes;
 
 	EaseVR = {
 
@@ -99,7 +100,11 @@
 
 		autoPush: function( interval ) {
 			clearInterval( _autoPushInterval );
-			setInterval( _autoPushInterval, this.postEvents );
+			setInterval( this.postEvents, _autoPushInterval );
+		},
+
+		logPushes: function( enable ) {
+			_logPushes = enable;
 		},
 
 		postEvents: function() {
@@ -115,6 +120,10 @@
 			_events = [];
 
 			var url = _apiUrl + '/client/' +'GUID_TODO' + '/events';
+
+			if( _logPushes ) {
+				console.log( 'Easvr push to ' + url + '\n' + payload );
+			}
 
 			var request = new XMLHttpRequest;
 			request.onload = function( e ) {
