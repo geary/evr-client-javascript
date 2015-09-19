@@ -34,7 +34,7 @@
 
 		sessionEnd: function() {
 			this.addEvent( 'SE' );
-			this.postEvents();
+			this.pushEvents();
 		},
 
 		markerAdd: function(
@@ -100,14 +100,14 @@
 
 		autoPush: function( interval ) {
 			clearInterval( _autoPushInterval );
-			setInterval( this.postEvents, _autoPushInterval );
+			setInterval( this.pushEvents, _autoPushInterval );
 		},
 
 		logPushes: function( enable ) {
 			_logPushes = enable;
 		},
 
-		postEvents: function() {
+		pushEvents: function() {
 			if( _events.length == 0 ) return;
 
 			var payload =
