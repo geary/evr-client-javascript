@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+	<title>EaseVR Test</title>
+	<script src="../src/evr-client.js"></script>
+</head>
+
+<body>
+
+<div></div>
+
+<script>
+	EaseVR.sessionBegin(
+		"TODO: Device ID",
+		"TODO: HMD Name",
+		"TODO: HMD Version",
+		navigator.userAgent,  // OS name
+		"TODO: Processor Type",
+		0,  // TODO: Processor Cores
+		0,  //TODO: System Memory
+		"TODO: GPU Name",
+		0,  // TODO: Graphics Memory
+		"TODO: Graphics Driver"
+	);
+
+	EaseVR.markerAdd(
+		'TestMarker',
+		1, 2, 3
+	);
+
+	EaseVR.presence(
+		1, 2, 3,
+		4, 5, 6,
+		99, 0
+	);
+
+	EaseVR.markerEnter(
+		'TestMarker',
+		1, 2, 3
+	);
+
+	EaseVR.markerExit(
+		'TestMarker',
+		1, 2, 3
+	);
+
+	EaseVR.markerRemove(
+		'TestMarker',
+		1, 2, 3
+	);
+
+	EaseVR.sessionEnd();
+</script>
+
+</body>
+</html>
