@@ -14,7 +14,7 @@
 
 	EaseVR = {
 
-		sessionBegin: function(
+		sessionStart: function(
 /*
 			deviceID,
 			hmdName,
@@ -29,7 +29,7 @@
 */
 		) {
 			_sessionID = this.generatePushID();
-			this.addEvent( 'SB', arguments );
+			this.addEvent( 'ST', arguments );
 		},
 
 		sessionEnd: function() {
