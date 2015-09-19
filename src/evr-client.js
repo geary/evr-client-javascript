@@ -9,9 +9,10 @@
 		'http://mikebook.local:8080/v1' :
 		'http://api.easevr.com/v1';
 	var _events = [];
+	var _autoPushInterval;
 
 	EaseVR = {
-		
+
 		sessionBegin: function(
 /*
 			deviceID,
@@ -26,7 +27,7 @@
 			graphicsDriver
 */
 		) {
-			_sessionID = generatePushID();
+			_sessionID = this.generatePushID();
 			this.addEvent( 'SB', arguments );
 		},
 
@@ -96,6 +97,11 @@
 			_events.push( cols.join('\t') );
 		},
 
+		autoPush: function( interval ) {
+			clearInterval( _autoPushInterval );
+			setInterval( _autoPushInterval, this.postEvents );
+		},
+
 		postEvents: function() {
 			if( _events.length == 0 ) return;
 
@@ -118,7 +124,6 @@
 			request.setRequestHeader( 'Content-Type', 'text/plain;charset=UTF-8' );
 			request.send( payload );
 		}
-
 	};
 
 	// PushID generator from:
@@ -135,7 +140,7 @@
 	 *    latter ones will sort after the former ones.  We do this by using the previous random bits
 	 *    but "incrementing" them by 1 (only in the case of a timestamp collision).
 	 */
-	var generatePushID = (function() {
+	EaseVR.generatePushID = (function() {
 		// Modeled after base64 web-safe chars, but ordered by ASCII.
 		var PUSH_CHARS = '-0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ_abcdefghijklmnopqrstuvwxyz';
 	
