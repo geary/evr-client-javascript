@@ -4,6 +4,7 @@
 
 	var _apiVer = 0;
 	var _sessionID;
+	var _startTime;
 	var _debug = true;
 	var _apiUrl = _debug ?
 		'http://mikebook.local:8080/v1' :
@@ -29,6 +30,7 @@
 */
 		) {
 			_sessionID = this.generatePushID();
+			_startTime = +new Date;
 			this.addEvent( 'ST', arguments );
 		},
 
@@ -87,7 +89,7 @@
 
 		addEvent: function( type, fields ) {
 			fields = fields || [];
-			var cols = [ type, +new Date ];
+			var cols = [ type, +new Date - _startTime ];
 			for( var i = 0;  i < fields.length;  i++ ) {
 				cols.push(
 					String.prototype.replace.call(
@@ -112,6 +114,7 @@
 
 			var payload =
 				'H\t' +
+				_startTime + '\t' +
 				_apiVer + '\t' +
 				'mike_APIKEY' + '\t' +
 				_sessionID + '\n' +
@@ -129,7 +132,7 @@
 			request.onload = function( e ) {
 				console.log( 'loaded' );
 			};
-			request.open( 'POST', url )
+			request.open( 'POST', url );
 			request.setRequestHeader( 'Content-Type', 'text/plain;charset=UTF-8' );
 			request.send( payload );
 		}
