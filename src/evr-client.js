@@ -77,7 +77,6 @@
 
 		presence: function(
 /*
-			name,
 			posX, posY, posZ,
 			rotX, rotY, rotZ,
 			framesPerSecond,
@@ -125,7 +124,7 @@
 			var url = _apiUrl + '/client/' +'GUID_TODO' + '/events';
 
 			if( _logPushes ) {
-				console.log( 'Easvr push to ' + url + '\n' + payload );
+				console.log( 'EaseVR push to ' + url + '\n' + payload );
 			}
 
 			var request = new XMLHttpRequest;
@@ -180,16 +179,16 @@
 	
 			var id = timeStampChars.join('');
 	
-			if( ! duplicateTime ) {
-				for( i = 0;  i < 12;  i++ ) {
-					lastRandChars[i] = Math.floor( Math.random() * 64 );
-				}
-			} else {
+			if( duplicateTime ) {
 				// If the timestamp hasn't changed since last push, use the same random number, except incremented by 1.
 				for( i = 11;  i >= 0 && lastRandChars[i] === 63;  i-- ) {
 					lastRandChars[i] = 0;
 				}
 				lastRandChars[i]++;
+			} else {
+				for( i = 0;  i < 12;  i++ ) {
+					lastRandChars[i] = Math.floor( Math.random() * 64 );
+				}
 			}
 			for( i = 0;  i < 12;  i++ ) {
 				id += PUSH_CHARS.charAt( lastRandChars[i] );
