@@ -121,7 +121,7 @@
 
 			_events = [];
 
-			var url = _apiUrl + '/client/' +'GUID_TODO' + '/events';
+			var url = _apiUrl + '/capture/' +'GUID_TODO' + '/events';
 
 			if( _logPushes ) {
 				console.log( 'EaseVR push to ' + url + '\n' + payload );
